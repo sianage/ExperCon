@@ -118,14 +118,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-AWS_ACCESS_KEY_ID = 'AKIAUE27H3NEREOF4TCS'
-AWS_SECRET_ACCESS_KEY = 'q0WG5nTATR6NqfnMvGi79kkQkbmbhEylAzTCe+zP'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_STORAGE_BUCKET_NAME = 'expercon'  # Your S3 bucket name
-AWS_S3_CUSTOM_DOMAIN = f'{expercon}.s3.amazonaws.com'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+
 STATIC_URL = 'static/'
-#MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'MainApp\static'),)
