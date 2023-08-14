@@ -1,5 +1,6 @@
+<!-- edit_profile_page.html -->
 {% extends "MainApp/base.html" %}
-{% block title %}add post{% endblock %}
+{% block title %}Edit Profile{% endblock %}
 
 {% block content %}
 <h1>edit profile</h1>
@@ -12,6 +13,7 @@
         <br>
         <div id="edit_profile_fields">
             {{ form.as_p }}
+            <input type="file" name="profile_picture">
         </div>
         <br>
         <button style="height: 30px; width: 100px; margin:auto;float:center; color:white;background-color:black;">edit profile</button>

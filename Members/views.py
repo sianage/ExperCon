@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.urls import reverse_lazy
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
+from storages.backends.s3boto3 import S3Boto3Storage
 
 from MainApp.forms import NoteForm
 from MainApp.models import Profile, Note, Post

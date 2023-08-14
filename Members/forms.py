@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
+from storages.backends.s3boto3 import S3Boto3Storage
 
 
 from MainApp.models import Profile, Category
@@ -11,9 +12,11 @@ for item in choices:
 
 
 class ProfilePageForm(forms.ModelForm):
+    profile_picture = forms.ImageField(widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Profile
-        fields = ('bio','github_url', 'linkedin_url')
+        fields = ('bio', 'github_url', 'linkedin_url')
         widgets = {
             'bio': forms.Textarea(attrs={'class': 'form-control'}),
             'github_url': forms.TextInput(attrs={'class': 'form-control'}),
@@ -29,9 +32,11 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
 class EditProfileForm(UserChangeForm):
+    profile_picture = forms.ImageField(widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
     github_url = forms.CharField(max_length=255)
     linkedin_url = forms.CharField(max_length=255)
     academic_field = forms.ChoiceField(choices=choice_list)
+
     class Meta:
         model = Profile
         fields = ('bio', 'github_url', 'linkedin_url', 'academic_field')
