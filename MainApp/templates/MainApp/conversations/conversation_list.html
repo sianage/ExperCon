@@ -1,0 +1,11 @@
+{% extends 'MainApp/base.html' %}
+
+{% block content %}
+  <h1>Conversation List</h1>
+
+  <ul class="conversation-list">
+    {% for conversation in conversations %}
+      <li><a href="{% url 'MainApp:conversation_detail' receiver_id=conversation.id %}">{{ conversation.username }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

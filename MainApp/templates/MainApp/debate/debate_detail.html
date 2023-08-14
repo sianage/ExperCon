@@ -1,0 +1,20 @@
+{% extends "MainApp/base.html" %}
+{% block content %}
+
+
+<h1>{{debate.title}}</h1>
+
+<h3>{{ debate.description }}</h3>
+{% for comment in debate.comments.all %}
+
+<div style="background-color:{% cycle '#dcebd8' '#ebd9d8'%}" id="comments">
+    <p><strong>{% cycle 'Agree' 'Disagree' %}</strong></p>
+    <br>
+{{ comment.body|ljust:10|striptags|safe|linebreaksbr }}
+</br>
+</div>
+<br>
+{% endfor %}
+<h1>{{ comment.body|ljust:10|striptags|safe|linebreaksbr }}</h1><!--???-->
+<a href="{% url 'MainApp:comment' debate.pk %}">Comment</a>
+{% endblock %}

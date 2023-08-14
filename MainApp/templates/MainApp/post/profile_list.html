@@ -1,0 +1,12 @@
+{% extends "MainApp/base.html" %}
+{% block title %}add post{% endblock %}
+
+{% block content %}
+<h1>Profile list</h1>
+{% if profiles %}
+    {% for profile in profiles %}
+        User: {{ profile.user.username }}
+        <br><br>
+    {% endfor %}
+{% endif %}
+{% endblock %}

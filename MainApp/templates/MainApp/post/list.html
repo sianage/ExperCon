@@ -1,0 +1,60 @@
+{% extends "MainApp/base.html" %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<div id="home_note">
+{% if form %}
+    <p>
+    <form method="POST" style="border: none;">
+        {% csrf_token %}
+
+        <div id="home_submit">
+            {{ form.as_p }}
+        </div>
+    <div id="home_submit_btn_div">
+        <button type="submit" id="home_submit_btn">Post Note</button>
+    </div>
+    </form>
+    </p>
+
+</div>
+
+
+<div id="note_wrapper">
+<div id="note_list">
+
+{% for note in notes %}
+
+
+
+    <div id="note_div">
+
+        <div id="note_pic">
+            {% if note.user.profile.profile_picture %}
+                <img src="{{ note.user.profile.profile_picture.url }}">
+            {% endif %}
+        </div>
+
+        <div id="note_text">
+            <strong>{{ note.user.first_name|capfirst }} {{ note.user.last_name|capfirst }}: {{note.body|ljust:10|striptags|safe|urlize}}</strong>
+            <br>
+            (posted {{note.created_at}})
+            <br>
+            <br>
+            {% if request.user.username == note.user.username %}
+                <a href="{% url 'MainApp:delete_note' note.id %}" id="delete_note_button">Delete</a>
+                <a href="{% url 'MainApp:edit_note' note.id %}" id="edit_note_button">Edit</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endfor %}
+
+{% endif %}
+</div>
+</div>
+{% else %}
+<h1>homepage</h1>
+{% endif %}
+{% endblock %}

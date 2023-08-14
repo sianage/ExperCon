@@ -1,0 +1,17 @@
+{% extends "MainApp/base.html" %}
+{% block title %}add post{% endblock %}
+
+{% block content %}
+<h1>edit settings</h1>
+<div id="edit_settings">
+    <form method="post", enctype="multipart/form-data" style="border: none;">
+        {% csrf_token %}
+        {{ form.media }}
+        <div id="edit_settings_fields">
+            {{ form.as_p }}
+        </div>
+        <br>
+        <button style="height: 30px; width: 100px; margin:auto;float:center; color:white;background-color:black;">update</button>
+    </form>
+</div>
+{% endblock %}

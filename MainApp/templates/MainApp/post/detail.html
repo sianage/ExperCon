@@ -1,0 +1,28 @@
+{% extends "MainApp/base.html" %}
+{% load static %}
+{% block title %}blog entry{% endblock %}
+{% block content %}
+<div id="blog_box">
+    <div id="post_body">
+        </br>
+        {% if user.is_authenticated %}
+{% if user.id == post.author.id %}
+<div id="edit_delete">
+<a href="{% url 'MainApp:update_post' post.pk %}"><strong><h2>Edit</h2></strong></a>
+        <a href="{% url 'MainApp:delete_post' post.pk %}"><strong><h2>Delete</h2></strong></a>
+</div>
+{% else %}
+<h1>You are not authorized to edit/delete this post!</h1>
+{% endif %}
+{% endif %}
+<br/>
+        <h1>{{ post.title }}</h1>
+        <p class="date">
+        Published {{ post.publish }} by <a href="{% url 'profile_page' post.author.profile.id %}">{{ post.author.first_name }} {{ post.author.last_name}}</a>
+    </p>
+        </br>
+    {{ post.body|ljust:10|striptags|safe|linebreaksbr }}
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'MainApp/base.html' %}
+{% block content %}
+<h1>Users</h1>
+{% if profiles %}
+    {% for profile in profiles %}
+        Username: {{ profile.user.username }}
+        link: <a href="{% url 'profile_page' profile.id %}">@{{ profile.user.username|lower }}
+        <br>
+    {% endfor %}
+{% endif %}
+{% endblock %}

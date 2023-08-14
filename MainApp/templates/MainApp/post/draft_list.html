@@ -1,0 +1,16 @@
+{% extends "MainApp/base.html" %}
+
+{% block title %}Draft Blog Posts{% endblock %}
+
+{% block content %}
+<h1>Draft Blog Posts</h1>
+{% if draft_posts %}
+  <ul>
+    {% for post in draft_posts %}
+      <li><a href="{% url 'MainApp:post_detail' post.pk %}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No draft blog posts found.</p>
+{% endif %}
+{% endblock %}

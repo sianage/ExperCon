@@ -1,0 +1,18 @@
+{% extends "MainApp/base.html" %}
+{% block content %}
+<h1>Debates</h1>
+
+    {% for debate in debate_list %}
+        {% if debate.category.category == "Philosophy" %}
+        <div id="debate_list">
+            <div id="debate">
+                <strong><h2><a href="{% url 'MainApp:debate-details' debate.pk %}">{{ debate.title }}</a></h2></strong>
+                    <!--<h3>Category: {{ debate.category.category }}</h3>-->
+                </br>
+            </div>
+        </div>
+        <br>
+        {% endif %}
+    {% endfor %}
+    {% include "pagination.html" with page=posts %}
+{% endblock %}
