@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
+from MainApp.models import Profile
 from storages.backends.s3boto3 import S3Boto3Storage
 
 
@@ -39,10 +40,11 @@ class EditProfileForm(UserChangeForm):
 
     class Meta:
         model = Profile
-        fields = ('bio', 'github_url', 'linkedin_url', 'academic_field')
+        fields = ('bio', 'github_url', 'linkedin_url', 'academic_field', 'profile_picture')
         widgets = {
             'bio': forms.Textarea(attrs={'class': 'form-control'}),
             'github_url': forms.TextInput(attrs={'class': 'form-control'}),
             'linkedin_url': forms.TextInput(attrs={'class': 'form-control'}),
             'academic_field': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
+            'profile_picture': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
