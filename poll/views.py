@@ -9,10 +9,25 @@ from .models import Poll, Choice, Vote
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 
-class poll_list(ListView):
+class philosophy_poll_list(ListView):
     model = Poll
-    template_name = 'poll_list.html'
-    #return render(request, 'poll/poll_list.html')
+    template_name = 'poll/philosophy_poll_list.html'
+    #return render(request, 'poll/philosophy_poll_list.html')
+
+class economics_poll_list(ListView):
+    model = Poll
+    template_name = 'poll/economics_poll_list.html'
+    #return render(request, 'poll/philosophy_poll_list.html')
+
+class polisci_poll_list(ListView):
+    model = Poll
+    template_name = 'poll/polisci_poll_list.html'
+    #return render(request, 'poll/philosophy_poll_list.html')
+
+class medicine_poll_list(ListView):
+    model = Poll
+    template_name = 'poll/medicine_poll_list.html'
+    #return render(request, 'poll/philosophy_poll_list.html')
 
 def poll_detail(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)

@@ -58,11 +58,18 @@ def home(request):
 
             paginator_philosophy = Paginator(home.filter(category__category="Philosophy"), 1)
             paginator_economics = Paginator(home.filter(category__category="Economics"), 1)
+            paginator_polisci = Paginator(home.filter(category__category="Political Science"), 1)
+            paginator_medicine = Paginator(home.filter(category__category="Medicine"), 1)
 
+            #number of pages set to specific number of blogs in category
             if requested_url == "/MainApp/philosophy/":
                 category_paginator = paginator_philosophy
             elif requested_url == "/MainApp/economics/":
                 category_paginator = paginator_economics
+            elif requested_url == "/MainApp/polisci/":
+                category_paginator = paginator_polisci
+            elif requested_url == "/MainApp/medicine/":
+                category_paginator = paginator_medicine
             else:
                 category_paginator = None
 
@@ -82,6 +89,10 @@ def home(request):
             return render(request, 'MainApp/post/philosophy_blog.html', {'posts': posts})
         elif requested_url == "/MainApp/economics/":
             return render(request, 'MainApp/post/economics.html', {'posts': posts})
+        elif requested_url == "/MainApp/medicine/":
+            return render(request, 'MainApp/post/medicine_blogs.html', {'posts': posts})
+        elif requested_url == "/MainApp/polisci/":
+            return render(request, 'MainApp/post/polisci_blogs.html', {'posts': posts})
         else:
             return render(request, 'MainApp/post/list.html', {'notes': notes, "form": form})
     else:
@@ -94,7 +105,7 @@ class post_detail(DetailView, ):
 
 @require_POST
 def debate_post(request, debate_id):
-    print("UHHHHHHHHHHHUHHHHH!!!!!!!!!")
+    print("DEBATE POST")
     post = get_object_or_404(Debate, id=debate_id)
     comment = None
     #???????????????????????????????
@@ -107,11 +118,52 @@ def debate_post(request, debate_id):
                   {'post':post, 'form':form, 'comment':comment})
 
 class debate_list(ListView):
+    print("DEBATE LIST")
     model = Debate
     template_name = 'MainApp/debate/debate_list.html'
 
     def get_queryset(self):
         author_id = self.request.GET.get('author')
+        print("author_id =", author_id)
+        if author_id:
+            return Debate.objects.filter(author_id=author_id)
+        else:
+            return Debate.objects.all()
+
+class economics_debate_list(ListView):
+    print("ECON DEBATE LIST")
+    model = Debate
+    template_name = 'MainApp/debate/economics_debate_list.html'
+
+    def get_queryset(self):
+        author_id = self.request.GET.get('author')
+        print("author_id =", author_id)
+        if author_id:
+            return Debate.objects.filter(author_id=author_id)
+        else:
+            return Debate.objects.all()
+
+class polisci_debate_list(ListView):
+    print("POLISCI DEBATE LIST")
+    model = Debate
+    template_name = 'MainApp/debate/polisci_debate_list.html'
+
+    def get_queryset(self):
+        author_id = self.request.GET.get('author')
+        print("author_id =", author_id)
+        if author_id:
+            return Debate.objects.filter(author_id=author_id)
+        else:
+            return Debate.objects.all()
+
+class medicine_debate_list(ListView):
+    print("MEDICINE DEBATE LIST")
+    model = Debate
+    template_name = 'MainApp/debate/medicine_debate_list.html'
+
+    def get_queryset(self):
+        author_id = self.request.GET.get('author')
+        print("author_id =", author_id)
         if author_id:
             return Debate.objects.filter(author_id=author_id)
         else:

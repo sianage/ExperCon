@@ -1,10 +1,10 @@
 {% extends "MainApp/base.html" %}
 {% block title %}my blog{% endblock %}
 {% block content %}
-    <h1>Economics Blog Entries</h1>
+    <h1>Medicine Blog Entries</h1>
 
     {% for post in posts %}
-        {% if post.category.category == "Economics" %}
+        {% if post.category.category == "Medicine" %}
         <div id="post_list">
             {% if user.is_authenticated %}
                 {% if user.id == post.author.id %}

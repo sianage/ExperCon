@@ -31,8 +31,9 @@
                <button class="dropbtn">Economics <i class="fa fa-caret-down"></i></button>
                <div class="dropdown-content">
                 <a href="{% url 'MainApp:economics_blog_list' %}">Blogs</a>
-                <a href="#">Debates</a>
-                <a href="#">Polls</a>
+                <a href="{% url 'MainApp:economics_debate_list' %}">Debates</a>
+                <a href="{% url 'economics_poll_list' %}">Polls</a>
+                <a href="{% url 'econ_profile_list' %}">Experts</a>
                </div>
              </div>
           </li>
@@ -40,9 +41,10 @@
              <div class="dropdown">
                <button class="dropbtn">Political Science <i class="fa fa-caret-down"></i></button>
                <div class="dropdown-content">
-                <a href="#">Blogs</a>
-                <a href="#">Debates</a>
-                <a href="#">Polls</a>
+                <a href="{% url 'MainApp:polisci_blog_list' %}">Blogs</a>
+                <a href="{% url 'MainApp:polisci_debate_list' %}">Debates</a>
+                <a href="{% url 'polisci_poll_list' %}">Polls</a>
+                <a href="{% url 'profile_list' %}">Experts</a>
                </div>
              </div>
           </li>
@@ -50,9 +52,10 @@
              <div class="dropdown">
                <button class="dropbtn">Medicine <i class="fa fa-caret-down"></i></button>
                <div class="dropdown-content">
-                <a href="#">Blogs</a>
-                <a href="#">Debates</a>
-                <a href="#">Polls</a>
+                <a href="{% url 'MainApp:medicine_blog_list' %}">Blogs</a>
+                <a href="{% url 'MainApp:medicine_debate_list' %}">Debates</a>
+                <a href="{% url 'medicine_poll_list' %}">Polls</a>
+                <a href="{% url 'profile_list' %}">Experts</a>
                </div>
              </div>
           </li>
@@ -62,7 +65,7 @@
                <div class="dropdown-content">
                 <a href="{% url 'MainApp:philosophy_blog_list' %}">Blogs</a>
                 <a href="{% url 'MainApp:debate_list' %}">Debates</a>
-                <a href="{% url 'poll_list' %}">Polls</a>
+                <a href="{% url 'philosophy_poll_list' %}">Polls</a>
                 <a href="{% url 'profile_list' %}">Experts</a>
                </div>
              </div>

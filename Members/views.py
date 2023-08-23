@@ -27,6 +27,10 @@ def profile_list(request):
     profiles = Profile.objects.exclude(user=request.user)
     return render(request, 'profile_list.html', {"profiles": profiles})
 
+def econ_profile_list(request):
+    profiles = Profile.objects.exclude(user=request.user)
+    return render(request, 'econ_profile_list.html', {"profiles": profiles})
+
 
 class CreateProfileView(CreateView):
     model = Profile

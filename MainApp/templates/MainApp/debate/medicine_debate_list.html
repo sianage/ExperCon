@@ -1,9 +1,9 @@
 {% extends "MainApp/base.html" %}
 {% block content %}
-<h1>Philosophy Debates</h1>
+<h1>Medicine Debates</h1>
 
     {% for debate in debate_list %}
-        {% if debate.category.category == "Philosophy" %}
+        {% if debate.category.category == "Political Science" %}
         <div id="debate_list">
             <div id="debate">
                 <strong><h2><a href="{% url 'MainApp:debate-details' debate.pk %}">{{ debate.title }}</a></h2></strong>

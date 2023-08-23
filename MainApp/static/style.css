@@ -90,6 +90,7 @@ body{
     overflow:auto;
     margin-left:50px;
     margin-top: 20px;
+    margin-bottom: 5px;
 }
 #note_list{
     width:100%;

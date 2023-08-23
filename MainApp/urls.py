@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from .views import post_detail, home, debate_list, debate_detail, philosophy_blog, AddBlogView, UpdateBlogView, \
-    DeleteBlogView, AddCommentView, AddDebateView
+    DeleteBlogView, AddCommentView, AddDebateView, economics_debate_list, polisci_debate_list, medicine_debate_list
 
 app_name = 'MainApp'
 
@@ -12,9 +12,14 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('blog_post/<int:pk>/', post_detail.as_view(), name='post_detail'),
     path('debate_list/', debate_list.as_view(), name='debate_list'),
+    path('economics_debate_list/', economics_debate_list.as_view(), name='economics_debate_list'),
+    path('polisci_debate_list/', polisci_debate_list.as_view(), name='polisci_debate_list'),
+    path('medicine_debate_list/', medicine_debate_list.as_view(), name='medicine_debate_list'),
     path('debate/<int:pk>/', debate_detail.as_view(), name='debate-details'),
     path('philosophy/', views.home, name='philosophy_blog_list'),
     path('economics/', views.home, name='economics_blog_list'),
+    path('polisci/', views.home, name='polisci_blog_list'),
+    path('medicine/', views.home, name='medicine_blog_list'),
     path('add_post/', AddBlogView.as_view(), name="add_post"),
     path('blog_post/edit/<int:pk>', UpdateBlogView.as_view(), name='update_post'),
     path('blog_post/delete/<int:pk>', DeleteBlogView.as_view(), name='delete_post'),
