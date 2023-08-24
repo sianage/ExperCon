@@ -31,6 +31,13 @@ def econ_profile_list(request):
     profiles = Profile.objects.exclude(user=request.user)
     return render(request, 'econ_profile_list.html', {"profiles": profiles})
 
+def polisci_profile_list(request):
+    profiles = Profile.objects.exclude(user=request.user)
+    return render(request, 'polisci_profile_list.html', {"profiles": profiles})
+
+def medicine_profile_list(request):
+    profiles = Profile.objects.exclude(user=request.user)
+    return render(request, 'medicine_profile_list.html', {"profiles": profiles})
 
 class CreateProfileView(CreateView):
     model = Profile

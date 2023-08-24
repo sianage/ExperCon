@@ -1,9 +1,9 @@
 {% extends 'MainApp/base.html' %}
 {% block content %}
-<h1>economics experts</h1>
+<h1>medical experts</h1>
 {% if profiles %}
     {% for profile in profiles %}
-{% if profile.academic_field|lower == "economics" %}
+{% if profile.academic_field|lower == "medicine" %}
         Username: {{ profile.user.username }}
         link: <a href="{% url 'profile_page' profile.id %}">@{{ profile.user.username|lower }}
         <br>

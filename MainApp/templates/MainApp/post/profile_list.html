@@ -5,7 +5,7 @@
 <h1>Profile list</h1>
 {% if profiles %}
     {% for profile in profiles %}
-        {% if user.profile.field|lowe == "philosophy" %}
+        {% if user.profile.field|lower == "philosophy" %}
         User: {{ profile.user.username }}
         {% endof %}
         <br><br>

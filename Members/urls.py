@@ -14,4 +14,6 @@ urlpatterns = [
     path('<int:pk>/edit_profile_page/', EditProfilePageView.as_view(), name="edit_profile_page"),
     path('profile_list/', views.profile_list, name='profile_list'),
     path('econ_profile_list/', views.econ_profile_list, name='econ_profile_list'),
+    path('polisci_profile_list/', views.polisci_profile_list, name='polisci_profile_list'),
+    path('medicine_profile_list/', views.medicine_profile_list, name='medicine_profile_list'),
 ]
