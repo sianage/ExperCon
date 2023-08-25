@@ -1,9 +1,10 @@
-body{
+body {
   margin: 0;
   padding: 0;
-  background: white;
-  font-family: arial;
+  background: linear-gradient(to bottom, #3055ab, #f5f7fc); /* Faint blue gradient from top to bottom */
+  font-family: Arial, sans-serif;
 }
+
 .form-control{
     text-align:left;
 }
@@ -90,8 +91,17 @@ body{
     overflow:auto;
     margin-left:50px;
     margin-top: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 20px #6f8dd6; /* Darker shadow */
+
+    transition: transform 0.3s ease-in-out; /* Apply transition to the transform property */
 }
+
+#note_wrapper:hover {
+    box-shadow: 0 2px 20px #6f8dd6; /* Darker shadow */
+
+}
+
 #note_list{
     width:100%;
     margin:auto;
@@ -117,28 +127,39 @@ body{
 #note_text{
     margin-left: 10px;
 }
-#note_div{
-    border-style: outset;
-    border-color: #d9d9d9;
+#note_div {
+    border-style: 1px solid;
+    border-color: black;
     padding: 12px 25px;
-    display:flex;
+    display: flex;
     align-items: center;
+    transition: border-style 0.3s ease-in-out;
 }
-#note_div:hover{
-  transition: .3s;
-  color: #b50202;
-  background-color:#d9d9d9;
+
+#note_div:hover {
+    border-style: outset;
+    border-color: #656d9e;
 }
-#home_note{
-    display:block;
+
+#home_note {
+    display: block;
     height: 300px;
     width: 500px;
-    border: ridge 5px #d9d9db;
     float: right;
-    margin-right:50px;
+    margin-right: 50px;
     overflow-y: auto;
     margin-bottom: 10px;
     margin-top: 20px;
+    background-color: blue;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4); /* Darker shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+#home_note:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.6); /* Darker shadow */
 }
 #home_submit_btn_div{
     text-align:center;
@@ -248,7 +269,7 @@ debate{
     text-align: center;
     color: black;
 }
-#post_list{
+#post_list {
     background-color: white;
     color: black;
     border-style: groove;
@@ -256,7 +277,7 @@ debate{
     padding: 10px;
     margin-left: 20px;
     margin-right: 20px;
-    box-shadow: 10px 10px 100px grey inset;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 #edit_delete{
     text-align: center;
@@ -272,8 +293,10 @@ debate{
     color: white;
     background-color: black;
 }
-#post_list:hover{
+#post_list:hover {
     background-color: #d9d9d9;
+    transform: scale(1.01);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3), 10px 10px 40px rgba(0, 0, 0, 0.2);
 }
 /* home button */
 #btn{

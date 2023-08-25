@@ -56,10 +56,10 @@ def home(request):
             home = Post.published.all()
             notes = Note.objects.filter(profile__in=followed_profiles).order_by("-created_at")
 
-            paginator_philosophy = Paginator(home.filter(category__category="Philosophy"), 1)
-            paginator_economics = Paginator(home.filter(category__category="Economics"), 1)
-            paginator_polisci = Paginator(home.filter(category__category="Political Science"), 1)
-            paginator_medicine = Paginator(home.filter(category__category="Medicine"), 1)
+            paginator_philosophy = Paginator(home.filter(category__category="Philosophy"), 2)
+            paginator_economics = Paginator(home.filter(category__category="Economics"), 2)
+            paginator_polisci = Paginator(home.filter(category__category="Political Science"), 2)
+            paginator_medicine = Paginator(home.filter(category__category="Medicine"), 2)
 
             #number of pages set to specific number of blogs in category
             if requested_url == "/MainApp/philosophy/":
