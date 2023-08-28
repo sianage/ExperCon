@@ -5,7 +5,14 @@
 
   <ul class="conversation-list">
     {% for conversation in conversations %}
-      <li><a href="{% url 'MainApp:conversation_detail' receiver_id=conversation.id %}">{{ conversation.username }}</a></li>
+      <li>
+        <div class="convo-list-element">
+          <a class="button-link" href="{% url 'MainApp:conversation_detail' receiver_id=conversation.id %}">
+            {{ conversation.username }}
+          </a>
+        </div>
+      </li>
     {% endfor %}
   </ul>
 {% endblock %}
+

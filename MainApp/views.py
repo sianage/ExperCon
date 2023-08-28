@@ -1,6 +1,6 @@
 #import self as self
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.views.generic import ListView, DetailView

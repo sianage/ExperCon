@@ -3,7 +3,7 @@
 
 
 {% if user.is_authenticated %}
-<h1>create profile</h1>
+<h1>Create Profile</h1>
 <form method="post", enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.media }}
