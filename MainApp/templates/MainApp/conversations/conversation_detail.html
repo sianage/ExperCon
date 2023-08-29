@@ -6,9 +6,10 @@
   <div class="messages">
     {% for message in messages %}
       <div class="message">
-        <p>{{ message.content }}</p>
+        <p><strong>{{ message.sender.username}}:</strong> {{ message.content }}</p>
         <p class="timestamp">{{ message.timestamp }}</p>
       </div>
+    <hr id="message_separator">
     {% endfor %}
   </div>
 
