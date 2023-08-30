@@ -1,12 +1,12 @@
 {% extends "MainApp/base.html" %}
 {% block content %}
-<h1>Philosophy Debates</h1>
+<h1>user blogs</h1>
 
-    {% for debate in debate_list %}
+    {% for post in post_list %}
 
         <div id="debate_list">
             <div id="debate">
-                <strong><h2><a href="{% url 'MainApp:debate-details' debate.pk %}">{{ debate.title }}</a></h2></strong>
+                <strong><h2><a href="{% url 'MainApp:post_detail' post.pk %}">{{ post.title }}</a></h2></strong>
                     <!--<h3>Category: {{ debate.category.category }}</h3>-->
                 </br>
             </div>

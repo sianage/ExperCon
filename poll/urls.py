@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 from .views import philosophy_poll_list, poll_detail, economics_poll_list, polisci_poll_list, medicine_poll_list
-
 urlpatterns = [
     path('philosophy_poll_list/', philosophy_poll_list.as_view(), name='philosophy_poll_list'),
     path('economics_poll_list/', economics_poll_list.as_view(), name='economics_poll_list'),

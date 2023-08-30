@@ -3,6 +3,8 @@
 <h1>Philosophy Debates</h1>
 
     {% for debate in debate_list %}
+        {% if debate.category.category == "Philosophy" %}
+
         <div id="debate_list">
             <div id="debate">
                 <strong><h2><a href="{% url 'MainApp:debate-details' debate.pk %}">{{ debate.title }}</a></h2></strong>
@@ -11,6 +13,7 @@
             </div>
         </div>
         <br>
+{% endif %}
     {% endfor %}
     {% include "pagination.html" with page=debate_list %}
 {% endblock %}

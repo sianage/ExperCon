@@ -35,71 +35,74 @@ class DraftListView(LoginRequiredMixin, ListView):
         return reverse('MainApp:post_detail', kwargs={'pk': post.pk})
 
 
-def home(request):
-    requested_url = request.path
-    if request.user.is_authenticated:
-        form = NoteForm(request.POST or None)
-        if request.method == "POST":
-            if form.is_valid():
-                note = form.save(commit=False)
-                note.profile = request.user.profile
-                note.user = request.user
-                note.save()
-                return redirect('MainApp:home')
+class user_blogs(ListView):
+    print("blog LIST")
+    model = Post
+    template_name = 'MainApp/post/user_blogs.html'
 
-        try:
-            profile = request.user.profile
-            followed_profiles = request.user.profile.follows.all()
-            print("FOLLOWING: ", followed_profiles)
-            current_user = request.user
-            print("URL is......", requested_url)
-            home = Post.published.all()
-            notes = Note.objects.filter(profile__in=followed_profiles).order_by("-created_at")
-
-            paginator_philosophy = Paginator(home.filter(category__category="Philosophy"), 2)
-            paginator_economics = Paginator(home.filter(category__category="Economics"), 2)
-            paginator_polisci = Paginator(home.filter(category__category="Political Science"), 2)
-            paginator_medicine = Paginator(home.filter(category__category="Medicine"), 2)
-
-            #number of pages set to specific number of blogs in category
-            if requested_url == "/MainApp/philosophy/":
-                category_paginator = paginator_philosophy
-            elif requested_url == "/MainApp/economics/":
-                category_paginator = paginator_economics
-            elif requested_url == "/MainApp/polisci/":
-                category_paginator = paginator_polisci
-            elif requested_url == "/MainApp/medicine/":
-                category_paginator = paginator_medicine
-            else:
-                category_paginator = None
-
-            if category_paginator:
-                page_number = request.GET.get('page', 1)
-                try:
-                    posts = category_paginator.page(page_number)
-                except PageNotAnInteger:
-                    posts = category_paginator.page(1)
-                except EmptyPage:
-                    posts = category_paginator.page(category_paginator.num_pages)
-
-        except:
-            return redirect("create_profile_page")
-
-        if requested_url == "/MainApp/philosophy/":
-            return render(request, 'MainApp/post/philosophy_blog.html', {'posts': posts})
-        elif requested_url == "/MainApp/economics/":
-            return render(request, 'MainApp/post/economics.html', {'posts': posts})
-        elif requested_url == "/MainApp/medicine/":
-            return render(request, 'MainApp/post/medicine_blogs.html', {'posts': posts})
-        elif requested_url == "/MainApp/polisci/":
-            return render(request, 'MainApp/post/polisci_blogs.html', {'posts': posts})
+    def get_queryset(self):
+        author_id = self.request.GET.get('author')
+        print("author_id =", author_id)
+        if author_id:
+            return Post.objects.filter(author_id=author_id)
         else:
-            return render(request, 'MainApp/post/list.html', {'notes': notes, "form": form})
-    else:
+            return Post.objects.all()
+
+
+def philosophy_view(request):
+    # Logic for the philosophy section
+    posts = get_category_posts("Philosophy", request)
+    return render(request, 'MainApp/post/philosophy_blog.html', {'posts': posts})
+
+def economics_view(request):
+    # Logic for the economics section
+    posts = get_category_posts("Economics", request)
+    return render(request, 'MainApp/post/economics.html', {'posts': posts})
+
+def medicine_view(request):
+    # Logic for the medicine section
+    posts = get_category_posts("Medicine", request)
+    return render(request, 'MainApp/post/medicine_blogs.html', {'posts': posts})
+
+def polisci_view(request):
+    # Logic for the political science section
+    posts = get_category_posts("Political Science", request)
+    return render(request, 'MainApp/post/polisci_blogs.html', {'posts': posts})
+
+def home(request):
+    if not request.user.is_authenticated:
         return render(request, 'MainApp/post/list.html')
 
-def user_blogs():
-    print("hello")
+    form = NoteForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            note = form.save(commit=False)
+            note.profile = request.user.profile
+            note.user = request.user
+            note.save()
+            return redirect('MainApp:home')
+
+    try:
+        profile = request.user.profile
+        followed_profiles = profile.follows.all()
+        notes = Note.objects.filter(profile__in=followed_profiles).order_by("-created_at")
+    except:
+        return redirect("create_profile_page")
+
+    return render(request, 'MainApp/post/list.html', {'notes': notes, "form": form})
+
+# Helper function to get posts by category and paginate them
+def get_category_posts(category_name, request):
+    home = Post.published.all().filter(category__category=category_name)
+    paginator = Paginator(home, 2)
+    page_number = request.GET.get('page', 1)
+    try:
+        posts = paginator.page(page_number)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return posts
 
 class post_detail(DetailView, ):
     model = Post
@@ -138,11 +141,6 @@ class debate_list(ListView):
     print("DEBATE LIST")
     model = Debate
     template_name = 'MainApp/debate/debate_list.html'
-
-    context_object_name = 'debate_list'  # Define the context variable name
-
-    # Add the paginate_by attribute to specify the number of items per page
-    paginate_by = 2  # Adjust this value as needed
     def get_queryset(self):
         author_id = self.request.GET.get('author')
         print("author_id =", author_id)
@@ -197,6 +195,7 @@ class debate_detail(DetailView):
 class philosophy_blog(ListView):
     model = Post
     template_name = 'MainApp/post/philosophy_blog.html'
+
 
 class AddBlogView(LoginRequiredMixin, CreateView):
     model = Post

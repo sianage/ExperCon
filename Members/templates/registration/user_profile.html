@@ -24,16 +24,13 @@
 
 <div class="user-content-buttons">
     <div class="profile-button">
-        <a href="#" class="profile_button">Blogs</a>
+        <a href="{% url 'MainApp:user_blogs' %}?author={{ profile.user.id }}" class="profile_button">Blogs</a>
     </div>
     <br>
     <div class="profile-button">
         <a href="{% url 'MainApp:user_debates' %}?author={{ profile.user.id }}" class="profile_button">Debates</a>
     </div>
     <br>
-    <div class="profile-button">
-        <a href="#" class="profile_button">Polls</a>
-    </div>
 </div>
 
     <br><br><br>

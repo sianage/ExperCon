@@ -133,20 +133,18 @@ class UserEditView(generic.UpdateView):
 
 
 def ProfileView(request, pk):
-    '''profile = get_object_or_404(Profile, id=pk)
-    cat_menu = Profile.objects.all()
-
-    context = {
-        'profile': profile,
-        'cat_menu': cat_menu,
-        'page_user': profile
-    }'''
-
     if request.user.is_authenticated:
         form = NoteForm(request.POST or None)
         profile = Profile.objects.get(id=pk)
         followed_profiles = request.user.profile.follows.all()
         note = Note.objects.filter(profile__in=followed_profiles)
+
+        # Get the academic field of the profile
+        academic_field = profile.academic_field
+
+        # Filter the posts based on academic field and author
+        posts = Post.objects.filter(author=profile.user, category__category=academic_field)
+
         if request.method == "POST":
             current_user_profile = request.user.profile
             action = request.POST['follow']
@@ -156,11 +154,13 @@ def ProfileView(request, pk):
             elif action == 'follow':
                 current_user_profile.follows.add(profile)
             current_user_profile.save()
-        return render(request, 'registration/user_profile.html', {'profile': profile, 'note': note, 'form': form})
+
+        return render(request, 'registration/user_profile.html', {'profile': profile, 'note': note, 'form': form, 'posts': posts})
     else:
         return redirect('MainApp:home')
 
-    requested_url = request.path
+
+    '''requested_url = request.path
     if request.user.is_authenticated:
         form = NoteForm(request.POST or None)
         if request.method == "POST":
@@ -196,4 +196,4 @@ def ProfileView(request, pk):
         else:
             return render(request, 'MainApp/post/list.html', {'notes': notes, "form": form})
     else:
-        return render(request, 'MainApp/post/list.html')
+        return render(request, 'MainApp/post/list.html')'''
