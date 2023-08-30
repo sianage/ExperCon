@@ -21,17 +21,34 @@
     </br>
     <h1><strong>Links</strong></h1>
     </br>
-    Github: <a href="{{ profile.user.github_url }}">github</a>
-    </br>
-    LinkedIn: <a href="{{ profile.user.linkedin_url }}">linkedin</a>
+
+<div class="user-content-buttons">
+    <div class="profile-button">
+        <a href="#" class="profile_button">Blogs</a>
+    </div>
     <br>
+    <div class="profile-button">
+        <a href="{% url 'MainApp:user_debates' %}?author={{ profile.user.id }}" class="profile_button">Debates</a>
+    </div>
+    <br>
+    <div class="profile-button">
+        <a href="#" class="profile_button">Polls</a>
+    </div>
+</div>
+
+    <br><br><br>
+    {% if profile.github_url %}
+        Github: <a href="{{ profile.github_url }}">{{ profile.github_url }}</a>
+        <br>
+    {% endif %}
+    {% if profile.linkedin_url %}
+        LinkedIn: <a href="{{ profile.linkedin_url }}">{{ profile.linkedin_url }}</a>
+        <br>
+{% endif %}
+
     <br>
 
-    <a href="#">Blogs</a>
-    <br>
-    <a href="{% url 'MainApp:debate_list' %}?author={{ profile.user.id }}">Debates</a>
-    <br>
-    <a href="#">Polls</a>
+
 
 
 

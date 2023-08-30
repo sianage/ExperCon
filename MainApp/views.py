@@ -98,6 +98,9 @@ def home(request):
     else:
         return render(request, 'MainApp/post/list.html')
 
+def user_blogs():
+    print("hello")
+
 class post_detail(DetailView, ):
     model = Post
     template_name = 'MainApp/post/detail.html'
@@ -117,11 +120,29 @@ def debate_post(request, debate_id):
     return render(request, 'MainApp/debate/comment.html',
                   {'post':post, 'form':form, 'comment':comment})
 
+
+class user_debate_list(ListView):
+    print("DEBATE LIST")
+    model = Debate
+    template_name = 'MainApp/debate/user_debates.html'
+
+    def get_queryset(self):
+        author_id = self.request.GET.get('author')
+        print("author_id =", author_id)
+        if author_id:
+            return Debate.objects.filter(author_id=author_id)
+        else:
+            return Debate.objects.all()
+
 class debate_list(ListView):
     print("DEBATE LIST")
     model = Debate
     template_name = 'MainApp/debate/debate_list.html'
 
+    context_object_name = 'debate_list'  # Define the context variable name
+
+    # Add the paginate_by attribute to specify the number of items per page
+    paginate_by = 2  # Adjust this value as needed
     def get_queryset(self):
         author_id = self.request.GET.get('author')
         print("author_id =", author_id)
@@ -181,7 +202,7 @@ class AddBlogView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'MainApp/post/add_post.html'
-    success_url = reverse_lazy('MainApp:philosophy_blog_list')
+    success_url = reverse_lazy('MainApp:home')
 
     def form_valid(self, form):
         # Set the author of the post to the currently logged-in user

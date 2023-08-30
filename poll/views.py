@@ -52,6 +52,8 @@ def results(request, poll_id):
 
     return render(request, 'poll/results.html', {'poll': poll, 'choices': choices, 'total_votes': total_votes})
 
+from .models import Category
+
 def CreatePollView(request):
     ChoiceFormSet = formset_factory(ChoiceForm, extra=1)
 
@@ -68,7 +70,7 @@ def CreatePollView(request):
                 choice.poll = poll
                 choice.save()
 
-            return redirect('poll_list')  # Redirect to the desired page after successful submission
+            return redirect('MainApp:home')  # Redirect to the desired page after successful submission
     else:
         poll_form = PollForm()
         choice_formset = ChoiceFormSet(prefix='choices')

@@ -60,7 +60,20 @@ padding: 0;
 .convo-list-element {
 margin-bottom: 10px;
 }
+.poll-form {
+    width: 70%; /* Adjust the form width as needed */
+    margin: 0 auto; /* Center the form horizontally */
+}
 
+.choice-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.choice-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
 .button-link {
 display: inline-block;
 padding: 10px 20px;
@@ -395,6 +408,10 @@ debate{
     padding-right: 20px;
 }
 
+.profile-button {
+    flex: 1;
+    margin-right: 10px;
+}
 p{
     color: black;
     text-align: center;
@@ -465,7 +482,20 @@ href{
    color:#fafafc;
    border:none;
 }
-
+.profile_button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.profile_button:hover {
+    background-color: #0056b3;
+}
 /* Dropdown Button */
 .dropbtn {
  background-color: white;
@@ -559,9 +589,8 @@ img {
 form {
   box-sizing: border-box;
   padding: 2rem;
-  border-radius: 1rem;
   background-color: transparent;
-  border: 4px solid hsl(0, 0%, 90%);
+  border: none;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
