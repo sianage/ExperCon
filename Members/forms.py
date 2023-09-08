@@ -14,14 +14,19 @@ for item in choices:
 
 class ProfilePageForm(forms.ModelForm):
     profile_picture = forms.ImageField(widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
+    github_url = forms.CharField(max_length=255)
+    linkedin_url = forms.CharField(max_length=255)
+    academic_field = forms.ChoiceField(choices=choice_list)
 
     class Meta:
         model = Profile
-        fields = ('bio', 'github_url', 'linkedin_url')
+        fields = ('bio', 'github_url', 'linkedin_url', 'academic_field', 'profile_picture')
         widgets = {
             'bio': forms.Textarea(attrs={'class': 'form-control'}),
             'github_url': forms.TextInput(attrs={'class': 'form-control'}),
             'linkedin_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'academic_field': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
+            'profile_picture': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
 class SignUpForm(UserCreationForm):
@@ -48,3 +53,13 @@ class EditProfileForm(UserChangeForm):
             'academic_field': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
             'profile_picture': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
+
+class EditSettingsForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name')
+
+class EditPasswordForm(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))

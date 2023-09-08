@@ -1,10 +1,18 @@
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.context_processors import request
 from django.views import generic
-from django.contrib.auth import authenticate, login
+from .forms import EditSettingsForm, EditPasswordForm  # Import your custom forms
+
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.urls import reverse_lazy
+from django import forms
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
 from storages.backends.s3boto3 import S3Boto3Storage
@@ -13,7 +21,7 @@ from MainApp.forms import NoteForm
 from MainApp.models import Profile, Note, Post
 from django import forms
 from MainApp.models import Profile
-from .forms import SignUpForm, ProfilePageForm
+from .forms import SignUpForm, ProfilePageForm, EditPasswordForm, EditSettingsForm
 
 
 class EditProfilePageView(generic.UpdateView):
@@ -41,7 +49,7 @@ def medicine_profile_list(request):
 
 class CreateProfileView(CreateView):
     model = Profile
-    form_class = ProfilePageForm
+    fields = ['bio', 'github_url', 'linkedin_url', 'academic_field', 'profile_picture']
     template_name = "registration/create_profile.html"
 
     # fields = '__all__'
@@ -73,12 +81,35 @@ def UserRegisterView(request):
 
 
 class UserEditView(generic.UpdateView):
-    form_class = SignUpForm
     template_name = 'edit_profile.html'
+    form_class = EditSettingsForm  # Use the custom form for user information
     success_url = reverse_lazy('MainApp:home')
 
     def get_object(self):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['password_form'] = EditPasswordForm()  # Use the custom password change form
+        return context
+
+    def form_valid(self, form):
+        user = form.save()
+        password_form = self.request.POST.get('password_form', '')  # Default to empty string if not present
+        new_password1 = self.request.POST.get('new_password1', '')
+        new_password2 = self.request.POST.get('new_password2', '')
+
+        if password_form == 'password_change' and new_password1 and new_password2:
+            if new_password1 == new_password2:
+                user.set_password(new_password1)
+                user.save()
+                update_session_auth_hash(self.request, user)  # Keep the user logged in
+                messages.success(self.request, 'Password changed successfully.')
+            else:
+                messages.error(self.request, 'New passwords do not match.')
+
+        messages.success(self.request, 'Profile updated successfully.')
+        return super().form_valid(form)
 
 
 '''class ProfileView(DetailView):

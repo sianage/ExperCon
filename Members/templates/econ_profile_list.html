@@ -3,11 +3,11 @@
 <h1>economics experts</h1>
 {% if profiles %}
     {% for profile in profiles %}
-{% if profile.academic_field|lower == "economics" %}
-        Username: {{ profile.user.username }}
-        link: <a href="{% url 'profile_page' profile.id %}">@{{ profile.user.username|lower }}
-        <br>
-    {% endif %}
+        {% if profile.academic_field|lower == "economics" %}
+            Username: {{ profile.user.username }}
+            link: <a href="{% url 'profile_page' profile.id %}">@{{ profile.user.username|lower }}
+            <br>
+        {% endif %}
     {% endfor %}
 {% endif %}
 {% endblock %}
