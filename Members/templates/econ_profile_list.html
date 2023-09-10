@@ -1,13 +1,18 @@
 {% extends 'MainApp/base.html' %}
+
 {% block content %}
-<h1>economics experts</h1>
-{% if profiles %}
-    {% for profile in profiles %}
-        {% if profile.academic_field|lower == "economics" %}
-            Username: {{ profile.user.username }}
-            link: <a href="{% url 'profile_page' profile.id %}">@{{ profile.user.username|lower }}
-            <br>
+    <h1>Economics Experts</h1>
+
+    <div class="center-content">
+        {% if profiles %}
+            {% for profile in profiles %}
+                {% if profile.academic_field|lower == "economics" %}
+                    <div class="expert-list-item">
+                        <p>Username: {{ profile.user.username }}</p>
+                        <p>Link: <a href="{% url 'profile_page' profile.id %}">@{{ profile.user.username|lower }}</a></p>
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endif %}
-    {% endfor %}
-{% endif %}
+    </div>
 {% endblock %}

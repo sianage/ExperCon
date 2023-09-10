@@ -394,6 +394,11 @@ debate{
     font-weight: bold;
     text-align: center;
 }
+#draft_div{
+    text-align: center;
+    color: black;
+    background-color: transparent;
+}
 #user_profile{
     text-align: left;
     margin: auto;
