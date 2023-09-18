@@ -21,8 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('MainApp/', include('MainApp.urls', namespace='MainApp')),
-    #authentication urls
+    path('', include('MainApp.urls')),    #authentication urls
     path('Members/', include('django.contrib.auth.urls')),
     path('Members', include('Members.urls')),
     path('poll', include('poll.urls')),
