@@ -250,7 +250,7 @@ class UpdateBlogView(UpdateView):
     model = Post
     template_name = 'MainApp/post/update_blog.html'
     fields = ['title', 'body', 'status']
-    success_url = reverse_lazy('MainApp:philosophy_blog_list')
+    success_url = reverse_lazy('MainApp:home')
 
     def form_valid(self, form):
         # Set the author of the post to the currently logged-in user

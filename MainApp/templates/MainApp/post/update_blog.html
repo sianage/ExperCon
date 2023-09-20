@@ -4,12 +4,12 @@
 {% block content %}
 {% if user.is_authenticated %}
     {% if user.id == post.author.id %}
-        <h1>update post brooooooh</h1>
+        <h1>Edit Post</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.media }}
             {{ form.as_p }}
-            <button>up-dayttt-uh</button>
+            <button>Submit</button>
         </form>
     {% else %}
         <h1>You are not authorized to edit/delete this post!</h1>
