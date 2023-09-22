@@ -385,6 +385,25 @@ debate{
     height: 200;
     width: 200;
 }
+#about_div{
+    text-align:center;
+}
+#about_p_div{
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+#welcome_div{
+    text-align:center;
+}
+#welcome_p_div{
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
 #academic_field{
     text-align: center;
 }

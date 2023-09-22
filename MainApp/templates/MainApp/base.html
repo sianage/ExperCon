@@ -23,7 +23,7 @@
           </li>
            <li>
              <div class="dropdown">
-               <button class="dropbtn">About This Site </button>
+               <a class="nav-link" href="{% url 'MainApp:about' %}">About Site</a>
              </div>
           </li>
           <li>
@@ -117,7 +117,7 @@
     </div>
     <div class="container">
        <img src="{% static 'EXPOPN.PNG' %}" alt="banner">
-       <div class="centered">Expert Consensus</div>
+       <div class="centered">Expert Echo</div>
     </div>
 
     {% block content %}

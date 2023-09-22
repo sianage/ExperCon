@@ -69,6 +69,9 @@ def polisci_view(request):
     posts = get_category_posts("Political Science", request)
     return render(request, 'MainApp/post/polisci_blogs.html', {'posts': posts})
 
+def about(request):
+    return render(request, 'MainApp/post/about.html')
+
 def home(request):
     if not request.user.is_authenticated:
         return render(request, 'MainApp/post/list.html')

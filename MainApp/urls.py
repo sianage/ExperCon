@@ -35,4 +35,5 @@ urlpatterns = [
     path('conversations/', views.conversation_list, name='conversation_list'),
     path('conversations/<int:receiver_id>/', views.conversation_detail, name='conversation_detail'),
     path('conversations/<int:receiver_id>/send/', views.send_message, name='send_message'),
+    path('about/', views.about, name='about'),
 ]
