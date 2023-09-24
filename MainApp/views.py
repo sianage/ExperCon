@@ -223,31 +223,35 @@ class AddDebateView(LoginRequiredMixin, CreateView):
     template_name = 'MainApp/debate/add_debate.html'
     success_url = reverse_lazy('MainApp:debate_list')
 
+
 def AddCommentView(request, pk):
     debate = get_object_or_404(Debate, id=pk)
     comment = get_object_or_404(Debate, id=pk)
     user = request.user
     opponent = debate.opponent
     comments = debate.comments.all()
+
+    # Initialize form
+    form = CommentForm(request.POST or None)
+
     # Check if the user is the author or opponent
     if user != debate.author and user != opponent:
         return redirect('MainApp:home')
 
-    if comments.exists():
-        last_comment = comments.last()
-        last_commenter_name = last_comment.commenter_name
-        print("Opponent: ", last_commenter_name)
-        if last_commenter_name == request.user:
+    last_comment = comments.last()
+    last_commenter_name = last_comment.commenter_name
+    if last_commenter_name == request.user:
+        return redirect('MainApp:home')
+    else:
+        form = CommentForm(request.POST or None)
+        if request.method == 'POST' and form.is_valid():
+            comment = form.save(commit=False)
+            comment.debate_id = pk
+            comment.save()
             return redirect('MainApp:home')
-        else:
-            form = CommentForm(request.POST or None)
-            if request.method == 'POST' and form.is_valid():
-                comment = form.save(commit=False)
-                comment.debate_id = pk
-                comment.save()
-                return redirect('MainApp:home')
 
     return render(request, 'MainApp/debate/add_comment.html', {'form': form, 'debate': debate})
+
 
 class UpdateBlogView(UpdateView):
     model = Post
